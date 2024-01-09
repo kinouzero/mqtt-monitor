@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  mqtt-monitor:
+    build:
+      context: .
+    image: mqtt-monitor:build
+    # image: kinouzero/mqtt-monitor:latest
+    environment:
+      - MQTT_BROKER_HOST=localhost
+      - SLACK_WEBHOOK_URL=webhook_url
+      - MAX_SILENT_TOPICS=2
+      - WAIT_TIMEOUT=60
+      - CHECK_INTERVAL=3600
+      - TOPICS_FILE=/app/config/topics.txt
+      - CREDENTIALS_FILE=/app/config/credentials.json
+      - PROCESS_SCRIPT=/app/process.sh
+      - DEBUG=false
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
